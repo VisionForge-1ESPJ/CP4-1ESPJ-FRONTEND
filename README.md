@@ -128,4 +128,4 @@ Projeto desenvolvido como atividade acadêmica com foco em prática de React e l
 
 ---
 
-<p align="center">Feito com 💙 pela equipe <strong>VisionForge</strong></p>
+<p align="center">Feito pela equipe <strong>VisionForge</strong></p>
