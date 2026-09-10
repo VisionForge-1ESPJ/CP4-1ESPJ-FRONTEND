@@ -1,49 +1,22 @@
-import { useState } from "react";
-import TodoInput from "./todoInput";
 import TodoItem from "./todoItem";
 
-function TodoList() {
-  const [tasks, setTasks] = useState([]);
-
-  function addTask(text) {
-    const newTask = {
-      id: Date.now(),
-      text: text,
-      completed: false,
-    };
-
-    setTasks([...tasks, newTask]);
-  }
-
-  function toggleTask(id) {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id
-          ? { ...task, completed: !task.completed }
-          : task
-      )
-    );
-  }
-
-  function deleteTask(id) {
-    setTasks(tasks.filter((task) => task.id !== id));
-  }
-
+function TodoList({ todos, onToggle, onDelete }) {
   return (
-    <div>
-      <h1>Lista de Tarefas</h1>
-
-      <TodoInput onAdd={addTask} />
-
-      {tasks.map((task) => (
-        <TodoItem
-          key={task.id}
-          task={task}
-          onToggle={toggleTask}
-          onDelete={deleteTask}
-        />
-      ))}
-    </div>
+    <ul className="todo-list">
+      {todos.length === 0 ? (
+        <li className="empty-state">Nenhuma tarefa encontrada.</li>
+      ) : (
+        /* map transforma cada objeto de tarefa em um componente visual. */
+        todos.map((todo) => (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onToggle={onToggle}
+            onDelete={onDelete}
+          />
+        ))
+      )}
+    </ul>
   );
 }
 

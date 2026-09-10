@@ -1,24 +1,40 @@
-function TodoItem({ task, onToggle, onDelete }) {
+function TodoItem({ todo, onToggle, onDelete }) {
   return (
-    <div className="todo-item">
-      <span
-        style={{
-          textDecoration: task.completed ? "line-through" : "none",
-        }}
-      >
-        {task.text}
-      </span>
-
-      <div>
-        <button onClick={() => onToggle(task.id)}>
-          {task.completed ? "Desfazer" : "Concluir"}
+    <li className={todo.completed ? "todo-item done" : "todo-item"}>
+      <div className="todo-main">
+        <button
+          type="button"
+          className={todo.completed ? "status-button checked" : "status-button"}
+          onClick={() => onToggle(todo.id)}
+          aria-label={
+            todo.completed
+              ? "Marcar como pendente"
+              : "Marcar como concluída"
+          }
+        >
+          {todo.completed ? "✓" : "○"}
         </button>
 
-        <button onClick={() => onDelete(task.id)}>
-          Excluir
-        </button>
+        <div className="todo-copy">
+          <h3>{todo.title}</h3>
+          {todo.description ? <p>{todo.description}</p> : null}
+          <div className="meta-row">
+            <span>{todo.date || "Sem data"}</span>
+            <span className={`priority priority-${todo.priority.toLowerCase()}`}>
+              {todo.priority}
+            </span>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <button
+        type="button"
+        className="delete-button"
+        onClick={() => onDelete(todo.id)}
+      >
+        Excluir
+      </button>
+    </li>
   );
 }
 
